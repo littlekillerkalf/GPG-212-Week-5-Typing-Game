@@ -16,7 +16,7 @@ public class LoadExcel : MonoBehaviour
         itemDatabase.Clear();
 
         // Read The CSV Files
-        List<Dictionary<string, object>> data = CSVReader.Read("Test 1");
+        List<Dictionary<string, object>> data = CSVReader.Read("Test");
 
         
 

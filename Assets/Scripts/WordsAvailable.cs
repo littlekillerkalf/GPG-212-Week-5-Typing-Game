@@ -7,8 +7,13 @@ using System.Linq;
 public class WordsAvailable : MonoBehaviour
 {
     public List<int> wordID;
+    public List<string> currentLetters;
     GameObject database;
     GameObject gameManager;
+    string prevStartingLetter;
+
+    public bool hasActiveWord = false;
+    public GameObject activeWord;
 
     private void Start() 
     {
@@ -16,19 +21,6 @@ public class WordsAvailable : MonoBehaviour
         database.GetComponent<LoadExcel>().LoadItemData();
 
         gameManager = GameObject.Find("GameManager");
-        
-        int itemCount = 0;
-        
-        foreach(Item item in GetComponent<LoadExcel>().itemDatabase)
-        {
-            itemCount++;
-        }
-        
-        int rand = UnityEngine.Random.Range(0, itemCount);
-
-        wordID.Add(database.GetComponent<LoadExcel>().itemDatabase[rand].id);
-        Debug.Log(wordID.Count());
-        StartCoroutine(gameManager.GetComponent<WaveHandler>().NewWave());
     }
 
     /// <summary>
@@ -46,25 +38,86 @@ public class WordsAvailable : MonoBehaviour
             
             int rand = UnityEngine.Random.Range(0, itemCount);
             
-            if(!wordID.Contains(database.GetComponent<LoadExcel>().itemDatabase[rand].id)&& wordID.Count() < itemCount)
+            //checks to ensure the Id isnt already in the list WordID
+            if(!IsIDUsed(rand) && wordID.Count() < itemCount && !IsStartingLetterInGame(rand))
             {
                 wordID.Add(database.GetComponent<LoadExcel>().itemDatabase[rand].id);
-                gameManager.GetComponent<WaveHandler>().NewWave();
+                currentLetters.Add(database.GetComponent<LoadExcel>().itemDatabase[rand].startingLetter);
+                // gameManager.GetComponent<WaveHandler>().NewWave();
+                StartCoroutine(gameManager.GetComponent<WaveHandler>().NewWave());
+                return;
             }
-            else if (wordID.Contains(database.GetComponent<LoadExcel>().itemDatabase[rand].id)&& wordID.Count() < itemCount)
+
+            // If the Word ID is in the list, loop through until it is not
+            else if (IsIDUsed(rand) && wordID.Count() < itemCount && !IsStartingLetterInGame(rand))
             {
-                while(wordID.Contains(database.GetComponent<LoadExcel>().itemDatabase[rand].id) )
+                while((IsIDUsed(rand) && IsStartingLetterInGame(rand)) || (IsIDUsed(rand)&& !IsStartingLetterInGame(rand)) || (!IsIDUsed(rand) && IsStartingLetterInGame(rand)))
                 {
                     rand = UnityEngine.Random.Range(0, itemCount);
                 }
                 wordID.Add(database.GetComponent<LoadExcel>().itemDatabase[rand].id);
+                currentLetters.Add(database.GetComponent<LoadExcel>().itemDatabase[rand].startingLetter);
+                // gameManager.GetComponent<WaveHandler>().NewWave();
+                StartCoroutine(gameManager.GetComponent<WaveHandler>().NewWave());
+                return;
             }
-            else
+            
+            else if (IsStartingLetterInGame(rand) && !IsIDUsed(rand) && wordID.Count() < itemCount)
             {
+                while((IsIDUsed(rand) && IsStartingLetterInGame(rand)) || (IsIDUsed(rand)&& !IsStartingLetterInGame(rand)) || (!IsIDUsed(rand) && IsStartingLetterInGame(rand)))
+                {
+                    rand = UnityEngine.Random.Range(0, itemCount);
+                }
+                wordID.Add(database.GetComponent<LoadExcel>().itemDatabase[rand].id);
+                currentLetters.Add(database.GetComponent<LoadExcel>().itemDatabase[rand].startingLetter);
+                // gameManager.GetComponent<WaveHandler>().NewWave();
+                StartCoroutine(gameManager.GetComponent<WaveHandler>().NewWave());
                 return;
             }
 
-            StartCoroutine(gameManager.GetComponent<WaveHandler>().NewWave());
+            else if (IsStartingLetterInGame(rand) && IsIDUsed(rand) && wordID.Count() < itemCount)
+            {
+                while((IsIDUsed(rand) && IsStartingLetterInGame(rand)) || (IsIDUsed(rand)&& !IsStartingLetterInGame(rand)) || (!IsIDUsed(rand) && IsStartingLetterInGame(rand)))
+                {
+                    rand = UnityEngine.Random.Range(0, itemCount);
+                }
+                wordID.Add(database.GetComponent<LoadExcel>().itemDatabase[rand].id);
+                currentLetters.Add(database.GetComponent<LoadExcel>().itemDatabase[rand].startingLetter);
+                // gameManager.GetComponent<WaveHandler>().NewWave();
+                StartCoroutine(gameManager.GetComponent<WaveHandler>().NewWave());
+                return;
+            }   
+
+            else
+            {
+                
+                return;
+            }
+        }
+    }   
+
+
+    bool IsIDUsed(int random)
+    {
+        if(wordID.Contains(database.GetComponent<LoadExcel>().itemDatabase[random].id))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    bool IsStartingLetterInGame(int random)
+    {
+        if(currentLetters.Contains(database.GetComponent<LoadExcel>().itemDatabase[random].startingLetter))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 }

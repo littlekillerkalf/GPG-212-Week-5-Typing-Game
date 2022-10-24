@@ -13,33 +13,30 @@ public class WaveHandler : MonoBehaviour
         database = GameObject.Find("Database");
     }
 
+
     public IEnumerator NewWave()
     {    
-        // Debug.Log("Entered New Wave");
         foreach(int itemId in database.GetComponent<WordsAvailable>().wordID.ToArray())
         {
-            // Debug.Log(itemId);
             foreach(Item item in database.GetComponent<LoadExcel>().itemDatabase)
             {
-                // UnityEngine.Debug.Log(item.id);
-                // UnityEngine.Debug.Log(itemId);
                 if(item.id == itemId)
                 {
-                    // UnityEngine.Debug.Log("test");
-                    spawnWord(item.word, item.definition, item.lives);
-                    yield return new WaitForSeconds(3);
+                    // database.GetComponent<WordsAvailable>().currentLetters.Add(item.startingLetter);
+                    spawnWord(item.word, item.definition, item.lives, item.startingLetter);
+                    yield return new WaitForSeconds(1);
                 }
             }
         }
     }
 
-    private void spawnWord(string word, string definition, int health)
+    private void spawnWord(string word, string definition, int health, string startingLetter)
     {
         GameObject enemy = Instantiate(cube);
         stats enemyStats = enemy.GetComponent<stats>();
         enemyStats.word = word;
         enemyStats.definition = definition;
         enemyStats.health = health;
-
+        enemyStats.startingLetter = startingLetter;
     }
 }
