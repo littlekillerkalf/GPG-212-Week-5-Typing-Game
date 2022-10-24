@@ -32,7 +32,6 @@ public class stats : MonoBehaviour
     }
 
     private void OnDestroy() {
-        database.GetComponent<WordsAvailable>().currentLetters.Remove(startingLetter);
         wordsAvailable.activeWord = null;
         wordsAvailable.hasActiveWord = false;
         GameObject.Find("GameManager").GetComponent<InputController>().currentIndex = 0;

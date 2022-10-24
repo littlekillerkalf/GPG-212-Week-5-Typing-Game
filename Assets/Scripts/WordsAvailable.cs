@@ -7,7 +7,6 @@ using System.Linq;
 public class WordsAvailable : MonoBehaviour
 {
     public List<int> wordID;
-    public List<string> currentLetters;
     GameObject database;
     GameObject gameManager;
     string prevStartingLetter;
@@ -39,58 +38,27 @@ public class WordsAvailable : MonoBehaviour
             int rand = UnityEngine.Random.Range(0, itemCount);
             
             //checks to ensure the Id isnt already in the list WordID
-            if(!IsIDUsed(rand) && wordID.Count() < itemCount && !IsStartingLetterInGame(rand))
+            if(!IsIDUsed(rand) && wordID.Count() < itemCount)
             {
                 wordID.Add(database.GetComponent<LoadExcel>().itemDatabase[rand].id);
-                currentLetters.Add(database.GetComponent<LoadExcel>().itemDatabase[rand].startingLetter);
-                // gameManager.GetComponent<WaveHandler>().NewWave();
                 StartCoroutine(gameManager.GetComponent<WaveHandler>().NewWave());
                 return;
             }
 
             // If the Word ID is in the list, loop through until it is not
-            else if (IsIDUsed(rand) && wordID.Count() < itemCount && !IsStartingLetterInGame(rand))
+            else if (IsIDUsed(rand) && wordID.Count() < itemCount)
             {
-                while((IsIDUsed(rand) && IsStartingLetterInGame(rand)) || (IsIDUsed(rand)&& !IsStartingLetterInGame(rand)) || (!IsIDUsed(rand) && IsStartingLetterInGame(rand)))
+                while((IsIDUsed(rand)))
                 {
                     rand = UnityEngine.Random.Range(0, itemCount);
                 }
                 wordID.Add(database.GetComponent<LoadExcel>().itemDatabase[rand].id);
-                currentLetters.Add(database.GetComponent<LoadExcel>().itemDatabase[rand].startingLetter);
-                // gameManager.GetComponent<WaveHandler>().NewWave();
                 StartCoroutine(gameManager.GetComponent<WaveHandler>().NewWave());
                 return;
             }
-            
-            else if (IsStartingLetterInGame(rand) && !IsIDUsed(rand) && wordID.Count() < itemCount)
-            {
-                while((IsIDUsed(rand) && IsStartingLetterInGame(rand)) || (IsIDUsed(rand)&& !IsStartingLetterInGame(rand)) || (!IsIDUsed(rand) && IsStartingLetterInGame(rand)))
-                {
-                    rand = UnityEngine.Random.Range(0, itemCount);
-                }
-                wordID.Add(database.GetComponent<LoadExcel>().itemDatabase[rand].id);
-                currentLetters.Add(database.GetComponent<LoadExcel>().itemDatabase[rand].startingLetter);
-                // gameManager.GetComponent<WaveHandler>().NewWave();
-                StartCoroutine(gameManager.GetComponent<WaveHandler>().NewWave());
-                return;
-            }
-
-            else if (IsStartingLetterInGame(rand) && IsIDUsed(rand) && wordID.Count() < itemCount)
-            {
-                while((IsIDUsed(rand) && IsStartingLetterInGame(rand)) || (IsIDUsed(rand)&& !IsStartingLetterInGame(rand)) || (!IsIDUsed(rand) && IsStartingLetterInGame(rand)))
-                {
-                    rand = UnityEngine.Random.Range(0, itemCount);
-                }
-                wordID.Add(database.GetComponent<LoadExcel>().itemDatabase[rand].id);
-                currentLetters.Add(database.GetComponent<LoadExcel>().itemDatabase[rand].startingLetter);
-                // gameManager.GetComponent<WaveHandler>().NewWave();
-                StartCoroutine(gameManager.GetComponent<WaveHandler>().NewWave());
-                return;
-            }   
 
             else
             {
-                
                 return;
             }
         }
@@ -100,18 +68,6 @@ public class WordsAvailable : MonoBehaviour
     bool IsIDUsed(int random)
     {
         if(wordID.Contains(database.GetComponent<LoadExcel>().itemDatabase[random].id))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    bool IsStartingLetterInGame(int random)
-    {
-        if(currentLetters.Contains(database.GetComponent<LoadExcel>().itemDatabase[random].startingLetter))
         {
             return true;
         }
