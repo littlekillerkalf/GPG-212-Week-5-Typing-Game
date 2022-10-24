@@ -3,16 +3,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.Events;
 
 public class WordsAvailable : MonoBehaviour
 {
     public List<int> wordID;
     GameObject database;
     GameObject gameManager;
-    string prevStartingLetter;
+
+    public int wave = 0;
+    public int enemiesKilledThisWave = 0;
 
     public bool hasActiveWord = false;
     public GameObject activeWord;
+
+    public delegate void LoadNewWaveEvent();
+    public static event LoadNewWaveEvent loadNewWaveEvent;
 
     private void Start() 
     {
@@ -20,6 +26,25 @@ public class WordsAvailable : MonoBehaviour
         database.GetComponent<LoadExcel>().LoadItemData();
 
         gameManager = GameObject.Find("GameManager");
+
+        wave = 0;
+    }
+
+    private void OnEnable() {
+        loadNewWaveEvent += newWaveEvent;
+    }
+
+    private void OnDisable() {
+        loadNewWaveEvent -= newWaveEvent;
+    }
+
+    private void Update() {
+        if(enemiesKilledThisWave == wave)
+        {
+            wave ++;
+            enemiesKilledThisWave = 0;
+            loadNewWaveEvent?.Invoke();
+        }
     }
 
     /// <summary>
@@ -64,6 +89,16 @@ public class WordsAvailable : MonoBehaviour
         }
     }   
 
+    void newWaveEvent()
+    {
+        StartCoroutine(LoadNewWave());
+    }
+
+    IEnumerator LoadNewWave()
+    {
+        yield return new WaitForSeconds(5);
+        AddNewItem();
+    }
 
     bool IsIDUsed(int random)
     {

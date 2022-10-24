@@ -22,12 +22,13 @@ public class WaveHandler : MonoBehaviour
             {
                 if(item.id == itemId)
                 {
-                    // database.GetComponent<WordsAvailable>().currentLetters.Add(item.startingLetter);
+                    yield return new WaitForSeconds(2);
                     spawnWord(item.word, item.definition, item.lives, item.startingLetter);
-                    yield return new WaitForSeconds(1);
                 }
             }
         }
+
+        // yield return new WaitForSeconds(3);
     }
 
     private void spawnWord(string word, string definition, int health, string startingLetter)

@@ -416,6 +416,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wordID: 
+  wave: 0
+  enemiesKilledThisWave: 0
   hasActiveWord: 0
   activeWord: {fileID: 0}
 --- !u!1 &1434535869

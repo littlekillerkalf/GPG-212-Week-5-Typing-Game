@@ -34,6 +34,7 @@ public class stats : MonoBehaviour
     private void OnDestroy() {
         wordsAvailable.activeWord = null;
         wordsAvailable.hasActiveWord = false;
+        wordsAvailable.enemiesKilledThisWave++;
         GameObject.Find("GameManager").GetComponent<InputController>().currentIndex = 0;
     }
 
