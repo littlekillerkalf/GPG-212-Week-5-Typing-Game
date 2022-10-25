@@ -96,7 +96,7 @@ public class WordsAvailable : MonoBehaviour
 
     IEnumerator LoadNewWave()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(2);
         AddNewItem();
     }
 

@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,7 +15,7 @@ public class stats : MonoBehaviour
     [SerializeField]
     public string startingLetter;
     [SerializeField]
-    TMP_Text wordText;
+    public TMP_Text wordText;
     GameObject database;
     WordsAvailable wordsAvailable;
 
@@ -36,6 +37,7 @@ public class stats : MonoBehaviour
         wordsAvailable.hasActiveWord = false;
         wordsAvailable.enemiesKilledThisWave++;
         GameObject.Find("GameManager").GetComponent<InputController>().currentIndex = 0;
+        GameObject.Find("GameManager").GetComponent<InputController>().currentInputs = string.Empty;
     }
 
 }

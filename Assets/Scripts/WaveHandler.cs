@@ -7,7 +7,8 @@ public class WaveHandler : MonoBehaviour
 {
     private GameObject database;
     public GameObject cube;
-
+    [SerializeField]
+    public Transform spawnLocation;
 
     private void Start() {
         database = GameObject.Find("Database");
@@ -22,18 +23,16 @@ public class WaveHandler : MonoBehaviour
             {
                 if(item.id == itemId)
                 {
-                    yield return new WaitForSeconds(2);
+                    yield return new WaitForSeconds(1f);
                     spawnWord(item.word, item.definition, item.lives, item.startingLetter);
                 }
             }
         }
-
-        // yield return new WaitForSeconds(3);
     }
 
     private void spawnWord(string word, string definition, int health, string startingLetter)
     {
-        GameObject enemy = Instantiate(cube);
+        GameObject enemy = Instantiate(cube, spawnLocation);
         stats enemyStats = enemy.GetComponent<stats>();
         enemyStats.word = word;
         enemyStats.definition = definition;
