@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class WordsAvailable : MonoBehaviour
 {
@@ -22,12 +23,20 @@ public class WordsAvailable : MonoBehaviour
 
     private void Start() 
     {
-        database = GameObject.Find("Database"); 
-        database.GetComponent<LoadExcel>().LoadItemData();
+        
+        if(SceneManager.GetActiveScene().name == "MainMenu")
+        {
+            // activeWord
+        }
+        else
+        {
+            database = GameObject.Find("Database"); 
+            database.GetComponent<LoadExcel>().LoadItemData();
 
-        gameManager = GameObject.Find("GameManager");
+            gameManager = GameObject.Find("GameManager");
 
-        wave = 0;
+            wave = 0;
+        }
     }
 
     private void OnEnable() {
@@ -39,7 +48,7 @@ public class WordsAvailable : MonoBehaviour
     }
 
     private void Update() {
-        if(enemiesKilledThisWave == wave)
+        if(enemiesKilledThisWave == wave && !(SceneManager.GetActiveScene().name == "MainMenu"))
         {
             wave ++;
             enemiesKilledThisWave = 0;

@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,9 +10,15 @@ public class SlimeMovement : MonoBehaviour
     private float speed = 12f;
     int currentIndex = 0;
     private void Start() {
-        foreach(GameObject wayPoint in GameObject.FindGameObjectsWithTag("Waypoints"))
+        // foreach(GameObject wayPoint in GameObject.FindGameObjectsWithTag("Waypoints"))
+        // {
+        //     waypoints.Add(wayPoint.transform);
+        //     Debug.Log(wayPoint);
+        // }
+        for(int i = 0; i <= GameObject.FindGameObjectsWithTag("Waypoints").Length; i++)
         {
-            waypoints.Add(wayPoint.transform);
+            waypoints.Add(GameObject.Find("Waypoints").transform.GetChild(i));
+            
         }
     }
     private void Update() {

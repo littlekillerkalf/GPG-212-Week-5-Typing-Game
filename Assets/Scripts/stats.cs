@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class stats : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class stats : MonoBehaviour
     WordsAvailable wordsAvailable;
 
     private void Start() {
-        wordText.text = word;
+        if(wordText != null) wordText.text = word;
         database = GameObject.Find("Database");
         wordsAvailable = GameObject.Find("Database").GetComponent<WordsAvailable>();
     }
@@ -33,11 +34,15 @@ public class stats : MonoBehaviour
     }
 
     private void OnDestroy() {
-        wordsAvailable.activeWord = null;
-        wordsAvailable.hasActiveWord = false;
-        wordsAvailable.enemiesKilledThisWave++;
-        GameObject.Find("GameManager").GetComponent<InputController>().currentIndex = 0;
-        GameObject.Find("GameManager").GetComponent<InputController>().currentInputs = string.Empty;
+        if(SceneManager.GetActiveScene().name != "MainMenu")
+        {
+            wordsAvailable.activeWord = null;
+            wordsAvailable.hasActiveWord = false;
+            wordsAvailable.enemiesKilledThisWave++;
+            GameObject.Find("GameManager").GetComponent<InputController>().currentIndex = 0;
+            GameObject.Find("GameManager").GetComponent<InputController>().currentInputs = string.Empty;
+        }
+        
     }
 
 }

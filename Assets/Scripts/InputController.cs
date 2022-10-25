@@ -2,6 +2,8 @@ using System.Drawing;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using TMPro;
 
 public class InputController : MonoBehaviour
 {
@@ -21,7 +23,7 @@ public class InputController : MonoBehaviour
             if(wordsAvailable.hasActiveWord == true)
             {
                 Debug.Log(letter);
-                if(letter == wordsAvailable.activeWord.GetComponent<stats>().word.ToLower()[currentIndex])
+                if(letter == wordsAvailable.activeWord.GetComponent<stats>().word.ToLower()[currentIndex] && SceneManager.GetActiveScene().name == "GameScene")
                 {
                     currentInputs += letter.ToString();
                     currentIndex++;
@@ -32,7 +34,7 @@ public class InputController : MonoBehaviour
                     {
                         temp += "_";
                     }
-                    wordsAvailable.activeWord.GetComponent<stats>().wordText.text = "<color=green>" + wordsAvailable.activeWord.GetComponent<stats>().startingLetter+currentInputs + "</color>" + temp;
+                    wordsAvailable.activeWord.GetComponent<stats>().wordText.text = "<color=yellow>" + wordsAvailable.activeWord.GetComponent<stats>().startingLetter+currentInputs + "</color>" + temp;
                     if(wordsAvailable.activeWord.GetComponent<stats>().health > 1)
                     {
                         StartCoroutine(AnimationControl());
@@ -42,12 +44,19 @@ public class InputController : MonoBehaviour
                         break;
                     }
                 }
+                else if(letter == wordsAvailable.activeWord.GetComponent<stats>().word.ToLower()[currentIndex])
+                {
+                    wordsAvailable.activeWord.transform.GetChild(currentIndex).GetComponent<TMP_Text>().text = "<color=yellow>"+letter.ToString().ToUpper() + "</color>";
+                    currentIndex++;
+                    wordsAvailable.activeWord.GetComponent<stats>().health --;
+                    
+                }
             }
             else
             {
                 foreach(GameObject enemy in GameObject.FindGameObjectsWithTag("Word"))
                 {
-                    if(enemy.GetComponent<stats>().word.ToLower().StartsWith(letter))
+                    if(enemy.GetComponent<stats>().word.ToLower().StartsWith(letter) && SceneManager.GetActiveScene().name == "GameScene")
                     {
                         wordsAvailable.hasActiveWord = true;
                         wordsAvailable.activeWord = enemy;
@@ -59,9 +68,17 @@ public class InputController : MonoBehaviour
                         {
                             temp += "_";
                         }
-                        enemy.GetComponent<stats>().wordText.text = "<color=green>"+enemy.GetComponent<stats>().startingLetter+"</color>" + temp;
+                        enemy.GetComponent<stats>().wordText.text = "<color=yellow>"+enemy.GetComponent<stats>().startingLetter+"</color>" + temp;
                         StartCoroutine(AnimationControl());
                         break;
+                    }
+                    else if(enemy.GetComponent<stats>().word.ToLower().StartsWith(letter))
+                    {
+                        wordsAvailable.hasActiveWord = true;
+                        wordsAvailable.activeWord = enemy;
+                        currentIndex++;
+                        enemy.GetComponent<stats>().health --;
+                        wordsAvailable.activeWord.GetComponentInChildren<TMP_Text>().text = "<color=yellow>"+enemy.GetComponent<stats>().startingLetter.ToUpper()+"</color>";
                     }
                 }
             }
