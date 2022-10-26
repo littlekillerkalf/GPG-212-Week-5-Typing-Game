@@ -29,6 +29,8 @@ public class SlimeMovement : MonoBehaviour
             currentIndex++;
             if(currentIndex > waypoints.Count-1)
             {
+                GameObject.Find("Canvas").transform.GetChild(0).gameObject.SetActive(true);
+                Destroy(GameObject.Find("Start"));
                 Destroy(gameObject);
             }
         }

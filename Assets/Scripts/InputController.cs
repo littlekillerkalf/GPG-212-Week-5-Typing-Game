@@ -23,7 +23,7 @@ public class InputController : MonoBehaviour
             if(wordsAvailable.hasActiveWord == true)
             {
                 Debug.Log(letter);
-                if(letter == wordsAvailable.activeWord.GetComponent<stats>().word.ToLower()[currentIndex] && SceneManager.GetActiveScene().name == "GameScene")
+                if(letter == wordsAvailable.activeWord.GetComponent<stats>().word.ToLower()[currentIndex] && SceneManager.GetActiveScene().name == "GameScene" && GameObject.Find("EndScreen") == null)
                 {
                     currentInputs += letter.ToString();
                     currentIndex++;
@@ -35,7 +35,7 @@ public class InputController : MonoBehaviour
                         temp += "_";
                     }
                     wordsAvailable.activeWord.GetComponent<stats>().wordText.text = "<color=yellow>" + wordsAvailable.activeWord.GetComponent<stats>().startingLetter+currentInputs + "</color>" + temp;
-                    if(wordsAvailable.activeWord.GetComponent<stats>().health > 1)
+                    if(wordsAvailable.activeWord.GetComponent<stats>().health > 1 && wordsAvailable.activeWord.GetComponent<Animator>() != null)
                     {
                         StartCoroutine(AnimationControl());
                     }
@@ -56,7 +56,7 @@ public class InputController : MonoBehaviour
             {
                 foreach(GameObject enemy in GameObject.FindGameObjectsWithTag("Word"))
                 {
-                    if(enemy.GetComponent<stats>().word.ToLower().StartsWith(letter) && SceneManager.GetActiveScene().name == "GameScene")
+                    if(enemy.GetComponent<stats>().word.ToLower().StartsWith(letter) && SceneManager.GetActiveScene().name == "GameScene" && GameObject.Find("EndScreen") == null)
                     {
                         wordsAvailable.hasActiveWord = true;
                         wordsAvailable.activeWord = enemy;
@@ -69,7 +69,7 @@ public class InputController : MonoBehaviour
                             temp += "_";
                         }
                         enemy.GetComponent<stats>().wordText.text = "<color=yellow>"+enemy.GetComponent<stats>().startingLetter+"</color>" + temp;
-                        StartCoroutine(AnimationControl());
+                        if(wordsAvailable.activeWord.GetComponent<Animator>() != null) StartCoroutine(AnimationControl());
                         break;
                     }
                     else if(enemy.GetComponent<stats>().word.ToLower().StartsWith(letter))

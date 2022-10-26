@@ -333,7 +333,7 @@ GameObject:
   - component: {fileID: 88892121}
   m_Layer: 5
   m_Name: EndScreen
-  m_TagString: Untagged
+  m_TagString: EndScreen
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -367,7 +367,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.0024414062, y: -0.0010070801}
+  m_AnchoredPosition: {x: 0.0024414062, y: -0.0009765625}
   m_SizeDelta: {x: -0.0050049, y: -0.0020142}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &88892121
@@ -1217,7 +1217,7 @@ MonoBehaviour:
   health: 7
   word: Restart
   definition: 
-  startingLetter: b
+  startingLetter: r
   wordText: {fileID: 0}
 --- !u!1 &484409648
 GameObject:

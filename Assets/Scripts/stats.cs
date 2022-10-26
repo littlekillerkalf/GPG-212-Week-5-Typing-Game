@@ -30,10 +30,14 @@ public class stats : MonoBehaviour
     }
 
     private void Update() {
-        if(health <= 0)
+        if(health <= 0 && SceneManager.GetActiveScene().name == "GameScene")
         {
             Destroy(gameObject);
             gameManager.GetComponent<WaveHandler>().score ++;
+        }
+        else if (health <= 0)
+        {
+            Destroy(gameObject);
         }
     }
 

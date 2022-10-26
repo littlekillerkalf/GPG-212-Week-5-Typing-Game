@@ -27,18 +27,21 @@ public class WaveHandler : MonoBehaviour
     }
     public IEnumerator NewWave()
     {    
-        foreach(int itemId in database.GetComponent<WordsAvailable>().wordID.ToArray())
+        if(GameObject.Find("Start")!= null)
         {
-            foreach(Item item in database.GetComponent<LoadExcel>().itemDatabase)
+            waveCount++;
+            foreach(int itemId in database.GetComponent<WordsAvailable>().wordID.ToArray())
             {
-                if(item.id == itemId)
+                foreach(Item item in database.GetComponent<LoadExcel>().itemDatabase)
                 {
-                    yield return new WaitForSeconds(1f);
-                    spawnWord(item.word, item.definition, item.lives, item.startingLetter);
+                    if(item.id == itemId)
+                    {
+                        yield return new WaitForSeconds(1f);
+                        spawnWord(item.word, item.definition, item.lives, item.startingLetter);
+                    }
                 }
             }
         }
-        waveCount++;
     }
 
     private void spawnWord(string word, string definition, int health, string startingLetter)
