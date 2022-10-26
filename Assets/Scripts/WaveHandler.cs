@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class WaveHandler : MonoBehaviour
 {
@@ -10,11 +11,17 @@ public class WaveHandler : MonoBehaviour
     [SerializeField]
     public Transform spawnLocation;
 
+    public TextMeshProUGUI waveText;
+    private int waveCount;
+
     private void Start() {
         database = GameObject.Find("Database");
     }
 
-
+    private void Update()
+    {
+        waveText.text = "Wave: " + waveCount.ToString();  
+    }
     public IEnumerator NewWave()
     {    
         foreach(int itemId in database.GetComponent<WordsAvailable>().wordID.ToArray())
@@ -28,6 +35,7 @@ public class WaveHandler : MonoBehaviour
                 }
             }
         }
+        waveCount++;
     }
 
     private void spawnWord(string word, string definition, int health, string startingLetter)
