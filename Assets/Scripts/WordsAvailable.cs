@@ -5,6 +5,7 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class WordsAvailable : MonoBehaviour
 {
@@ -20,6 +21,12 @@ public class WordsAvailable : MonoBehaviour
 
     public delegate void LoadNewWaveEvent();
     public static event LoadNewWaveEvent loadNewWaveEvent;
+
+    public string newWord;
+    public string newDefinition;
+
+
+
 
     private void Start() 
     {
@@ -74,6 +81,7 @@ public class WordsAvailable : MonoBehaviour
             //checks to ensure the Id isnt already in the list WordID
             if(!IsIDUsed(rand) && wordID.Count() < itemCount)
             {
+                newWord = database.GetComponent<LoadExcel>().itemDatabase[rand].word;
                 wordID.Add(database.GetComponent<LoadExcel>().itemDatabase[rand].id);
                 StartCoroutine(gameManager.GetComponent<WaveHandler>().NewWave());
                 return;
@@ -86,6 +94,7 @@ public class WordsAvailable : MonoBehaviour
                 {
                     rand = UnityEngine.Random.Range(0, itemCount);
                 }
+                newWord = database.GetComponent<LoadExcel>().itemDatabase[rand].word;
                 wordID.Add(database.GetComponent<LoadExcel>().itemDatabase[rand].id);
                 StartCoroutine(gameManager.GetComponent<WaveHandler>().NewWave());
                 return;
@@ -105,7 +114,7 @@ public class WordsAvailable : MonoBehaviour
 
     IEnumerator LoadNewWave()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
         AddNewItem();
     }
 

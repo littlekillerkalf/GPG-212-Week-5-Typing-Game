@@ -16,6 +16,14 @@ public class WaveHandler : MonoBehaviour
 
     public TextMeshProUGUI scoreText;
     public int score = 0;
+
+    public GameObject newWave;
+
+    [SerializeField]
+    TMP_Text definitionText;
+    [SerializeField]
+    TMP_Text wordText;
+    bool firstEnemy = true;
     private void Start() {
         database = GameObject.Find("Database");
     }
@@ -29,18 +37,32 @@ public class WaveHandler : MonoBehaviour
     {    
         if(GameObject.Find("Start")!= null)
         {
+            wordText.text = database.GetComponent<WordsAvailable>().newWord;
+            definitionText.text = database.GetComponent<WordsAvailable>().newDefinition;
+            newWave.SetActive(true);
             waveCount++;
             foreach(int itemId in database.GetComponent<WordsAvailable>().wordID.ToArray())
             {
                 foreach(Item item in database.GetComponent<LoadExcel>().itemDatabase)
                 {
-                    if(item.id == itemId)
+                    if(item.id == itemId && !firstEnemy)
                     {
                         yield return new WaitForSeconds(1f);
                         spawnWord(item.word, item.definition, item.lives, item.startingLetter);
+                        UnityEngine.Debug.Log((item.word));
+                        newWave.SetActive(false);
+                    }
+                    else if(item.id == itemId)
+                    {
+                        firstEnemy = false;
+                        yield return new WaitForSeconds(8f);
+                        spawnWord(item.word, item.definition, item.lives, item.startingLetter);
+                        UnityEngine.Debug.Log((item.word));
+                        newWave.SetActive(false);
                     }
                 }
             }
+            firstEnemy = true;
         }
     }
 
