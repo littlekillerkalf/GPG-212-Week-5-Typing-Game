@@ -22,8 +22,8 @@ public class WaveHandler : MonoBehaviour
 
     private void Update()
     {
-        waveText.text = "Wave: " + waveCount.ToString();
-        scoreText.text = "Score: " + score.ToString();
+        waveText.text = "Wave:" + waveCount.ToString();
+        scoreText.text = "Score:" + score.ToString();
     }
     public IEnumerator NewWave()
     {    
