@@ -20,16 +20,20 @@ public class stats : MonoBehaviour
     GameObject database;
     WordsAvailable wordsAvailable;
 
+    private GameObject gameManager;
+
     private void Start() {
         if(wordText != null) wordText.text = word;
         database = GameObject.Find("Database");
         wordsAvailable = GameObject.Find("Database").GetComponent<WordsAvailable>();
+        gameManager = GameObject.FindGameObjectWithTag("GameManager");
     }
 
     private void Update() {
         if(health <= 0)
         {
             Destroy(gameObject);
+            gameManager.GetComponent<WaveHandler>().score ++;
         }
     }
 

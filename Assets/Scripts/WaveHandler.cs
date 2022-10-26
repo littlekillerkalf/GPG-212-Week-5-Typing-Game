@@ -14,13 +14,16 @@ public class WaveHandler : MonoBehaviour
     public TextMeshProUGUI waveText;
     private int waveCount;
 
+    public TextMeshProUGUI scoreText;
+    public int score = 0;
     private void Start() {
         database = GameObject.Find("Database");
     }
 
     private void Update()
     {
-        waveText.text = "Wave: " + waveCount.ToString();  
+        waveText.text = "Wave: " + waveCount.ToString();
+        scoreText.text = "Score: " + score.ToString();
     }
     public IEnumerator NewWave()
     {    

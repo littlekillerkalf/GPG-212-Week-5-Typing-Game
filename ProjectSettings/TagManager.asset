@@ -7,6 +7,7 @@ TagManager:
   - Database
   - Word
   - Waypoints
+  - GameManager
   layers:
   - Default
   - TransparentFX
