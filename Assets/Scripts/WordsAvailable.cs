@@ -18,6 +18,7 @@ public class WordsAvailable : MonoBehaviour
 
     public bool hasActiveWord = false;
     public GameObject activeWord;
+    
 
     public delegate void LoadNewWaveEvent();
     public static event LoadNewWaveEvent loadNewWaveEvent;
@@ -31,9 +32,9 @@ public class WordsAvailable : MonoBehaviour
     private void Start() 
     {
         
-        if(SceneManager.GetActiveScene().name == "MainMenu")
+        if (SceneManager.GetActiveScene().name == "MainMenu")
         {
-            // activeWord
+            
         }
         else
         {

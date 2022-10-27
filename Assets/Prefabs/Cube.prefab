@@ -154,6 +154,7 @@ MonoBehaviour:
   definition: 
   startingLetter: 
   wordText: {fileID: 1397791229698008826}
+  _deadSlime: {fileID: 7166053395627342346, guid: b300a4d2d9f799040887ce2c1f257229, type: 3}
 --- !u!212 &1803937731776221313
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ public class InputController : MonoBehaviour
     private WordsAvailable wordsAvailable;
     public int currentIndex = 0;
     public string currentInputs;
+    public string activeString;
 
     private void Start() {
         wordsAvailable = GameObject.Find("Database").GetComponent<WordsAvailable>();
@@ -22,6 +23,7 @@ public class InputController : MonoBehaviour
         {
             if(wordsAvailable.hasActiveWord == true)
             {
+                activeString = wordsAvailable.activeWord.GetComponent<stats>().word;
                 Debug.Log(letter);
                 if(letter == wordsAvailable.activeWord.GetComponent<stats>().word.ToLower()[currentIndex] && SceneManager.GetActiveScene().name == "GameScene" && GameObject.Find("EndScreen") == null)
                 {

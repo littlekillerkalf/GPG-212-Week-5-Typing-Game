@@ -22,6 +22,9 @@ public class stats : MonoBehaviour
 
     private GameObject gameManager;
 
+    [SerializeField]
+    GameObject _deadSlime;
+
     private void Start() {
         if(wordText != null) wordText.text = word;
         database = GameObject.Find("Database");
@@ -44,11 +47,12 @@ public class stats : MonoBehaviour
     private void OnDestroy() {
         if(SceneManager.GetActiveScene().name != "MainMenu")
         {
-            wordsAvailable.activeWord = null;
-            wordsAvailable.hasActiveWord = false;
-            wordsAvailable.enemiesKilledThisWave++;
-            GameObject.Find("GameManager").GetComponent<InputController>().currentIndex = 0;
-            GameObject.Find("GameManager").GetComponent<InputController>().currentInputs = string.Empty;
+            Instantiate(_deadSlime, transform.position, Quaternion.identity);
+            //wordsAvailable.activeWord = null;
+            //wordsAvailable.hasActiveWord = false;
+            //wordsAvailable.enemiesKilledThisWave++;
+            //GameObject.Find("GameManager").GetComponent<InputController>().currentIndex = 0;
+            //GameObject.Find("GameManager").GetComponent<InputController>().currentInputs = string.Empty;
         }
         
     }
