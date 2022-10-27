@@ -1047,8 +1047,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -724.9994, y: -438.89624}
-  m_SizeDelta: {x: -1450.0013, y: -877.8025}
+  m_AnchoredPosition: {x: -662.01385, y: -438.8962}
+  m_SizeDelta: {x: -1324.0303, y: -877.8025}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &269904689
 MonoBehaviour:
@@ -1843,8 +1843,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 239, y: 39.14}
-  m_SizeDelta: {x: 462, y: 63.4003}
+  m_AnchoredPosition: {x: 301.98, y: 39.14}
+  m_SizeDelta: {x: 587.97, y: 63.4003}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &688986402
 MonoBehaviour:
@@ -1866,7 +1866,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'WordsCorrect:'
+  m_text: 'Words Correct:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5f6389ad57c0d20419835a815dc22a23, type: 2}
   m_sharedMaterial: {fileID: -5295954134407200672, guid: 5f6389ad57c0d20419835a815dc22a23, type: 2}
