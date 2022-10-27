@@ -16,7 +16,7 @@ public class LoadExcel : MonoBehaviour
         itemDatabase.Clear();
 
         // Read The CSV Files
-        List<Dictionary<string, object>> data = CSVReader.Read("Words");
+        List<Dictionary<string, object>> data = CSVReader.Read("words3test");
 
         
 
@@ -36,11 +36,15 @@ public class LoadExcel : MonoBehaviour
     {
         Item tempItem = new Item(blankItem);
         tempItem.id = id;
+        Debug.Log(id);
         tempItem.definition = definition;
+        Debug.Log(definition);
         tempItem.word = word;
+        Debug.Log(word);
         tempItem.lives = lives;
+        Debug.Log(lives);
         tempItem.startingLetter = startingLetter;
-
+        Debug.Log(startingLetter);
         itemDatabase.Add(tempItem);
     }
 

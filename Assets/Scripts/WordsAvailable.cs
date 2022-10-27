@@ -83,6 +83,7 @@ public class WordsAvailable : MonoBehaviour
             if(!IsIDUsed(rand) && wordID.Count() < itemCount)
             {
                 newWord = database.GetComponent<LoadExcel>().itemDatabase[rand].word;
+                newDefinition = database.GetComponent<LoadExcel>().itemDatabase[rand].definition;
                 wordID.Add(database.GetComponent<LoadExcel>().itemDatabase[rand].id);
                 StartCoroutine(gameManager.GetComponent<WaveHandler>().NewWave());
                 return;
@@ -96,6 +97,7 @@ public class WordsAvailable : MonoBehaviour
                     rand = UnityEngine.Random.Range(0, itemCount);
                 }
                 newWord = database.GetComponent<LoadExcel>().itemDatabase[rand].word;
+                newDefinition = database.GetComponent<LoadExcel>().itemDatabase[rand].definition;
                 wordID.Add(database.GetComponent<LoadExcel>().itemDatabase[rand].id);
                 StartCoroutine(gameManager.GetComponent<WaveHandler>().NewWave());
                 return;
